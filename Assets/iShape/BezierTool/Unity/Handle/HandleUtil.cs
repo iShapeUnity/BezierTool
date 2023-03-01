@@ -1,7 +1,4 @@
-﻿using iShape.Mesh2d;
-using Unity.Collections;
-using Unity.Mathematics;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
 namespace iShape.BezierTool {
@@ -35,46 +32,6 @@ namespace iShape.BezierTool {
             position = ray.GetPoint(dist);
 
             return true;
-        }
-
-        internal static Mesh GetPolygonCircleMesh(Vector2[] points, Color color) {
-            int n = points.Length;
-            var vertices = new Vector3[n + 1];
-            var colors = new Color[n + 1];
-            var triangles = new int[3 * n];
-
-            int trianglesCounter = 0;
-            int prevIndex = n - 1;
-
-            for (int i = 0; i < n; i++) {
-                vertices[i] = points[i];
-                colors[i] = color;
-                triangles[trianglesCounter++] = prevIndex;
-                triangles[trianglesCounter++] = i;
-                triangles[trianglesCounter++] = n;
-                prevIndex = i;
-            }
-
-            vertices[n] = Vector3.zero;
-            colors[n] = color;
-
-            var mesh = new Mesh {
-                vertices = vertices,
-                colors = colors,
-                triangles = triangles
-            };
-
-            return mesh;
-        }
-
-        internal static Mesh GetPolygonStrokeMesh(Vector2[] points, Color color, float stroke) {
-            var path = new NativeArray<Vector2>(points, Allocator.Temp).Reinterpret<float2>();
-
-            var nMesh = MeshGenerator.StrokeByPath(path, true, new StrokeStyle(stroke), 0, Allocator.Temp);
-
-            path.Dispose();
-
-            return nMesh.Convert(color);
         }
 
         public static bool HasPointNearPolyLine(Vector2[] points, float z, float distance, out Vector2 point) {

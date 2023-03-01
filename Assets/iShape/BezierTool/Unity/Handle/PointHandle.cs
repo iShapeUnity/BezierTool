@@ -1,4 +1,7 @@
-﻿using UnityEditor;
+﻿using iShape.Mesh2d;
+using Unity.Collections;
+using Unity.Mathematics;
+using UnityEditor;
 using UnityEngine;
 
 namespace iShape.BezierTool {
@@ -31,29 +34,23 @@ namespace iShape.BezierTool {
                 throw new System.Exception("could not load material");
             }
 
-            var points = getHandlePoints(radius);
-            this.defaultMesh = HandleUtil.GetPolygonCircleMesh(points, normal);
-            this.selectedMesh = HandleUtil.GetPolygonCircleMesh(points, selected);
-            this.hoverMesh = HandleUtil.GetPolygonCircleMesh(points, hover);
-            this.highlightedMesh = HandleUtil.GetPolygonCircleMesh(points, highlighted);
-            this.strokeMesh = HandleUtil.GetPolygonStrokeMesh(points, highlighted, stroke);
-        }
+            var rectMesh = MeshGenerator.Circle(float2.zero, radius, 4, 0, Allocator.Temp);
 
+            this.defaultMesh = new Mesh();
+            rectMesh.Fill(defaultMesh, normal);
+            
+            this.selectedMesh = new Mesh();
+            rectMesh.Fill(selectedMesh, selected);
+            
+            this.hoverMesh = new Mesh();
+            rectMesh.Fill(hoverMesh, hover);
 
-        private static Vector2[] getHandlePoints(float r) {
-            const int n = 4;
-            var points = new Vector2[n];
+            this.highlightedMesh = new Mesh();
+            rectMesh.Fill(highlightedMesh, highlighted);
+            
+            rectMesh.Dispose();
 
-            float angle = - 0.5f * Mathf.PI;
-            const float dAngle = 2 * Mathf.PI / n;
-
-            for(int i = 0; i < n; i++) {
-                points[i].x = r * Mathf.Cos(angle);
-                points[i].y = r * Mathf.Sin(angle);
-                angle += dAngle;
-            }
-
-            return points;
+            this.strokeMesh = MeshGenerator.StrokeForCircle(float2.zero, radius, 16, new StrokeStyle(1.6f * stroke), 0, Allocator.Temp).Convert(Color.yellow);
         }
 
         public PointResult MoveHandle(out Vector2 movedPosition, Anchor anchor, Vector3 pathPosition, float scale) {

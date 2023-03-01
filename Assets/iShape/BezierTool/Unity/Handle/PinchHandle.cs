@@ -1,4 +1,7 @@
-﻿using UnityEditor;
+﻿using iShape.Mesh2d;
+using Unity.Collections;
+using Unity.Mathematics;
+using UnityEditor;
 using UnityEngine;
 
 namespace iShape.BezierTool {
@@ -32,27 +35,21 @@ namespace iShape.BezierTool {
                 throw new System.Exception("could not load material");
             }
 
-            var points = GetHandlePoints(radius);
-            this.defaultMesh = HandleUtil.GetPolygonCircleMesh(points, normal);
-            this.selectedMesh = HandleUtil.GetPolygonCircleMesh(points, selected);
-            this.hoverMesh = HandleUtil.GetPolygonCircleMesh(points, hover);
-            this.strokeMesh = HandleUtil.GetPolygonStrokeMesh(points, Color.yellow, 1.6f * stroke);
-        }
+            var circleMesh = MeshGenerator.Circle(float2.zero, radius, 16, 0, Allocator.Temp);
 
-        
-        private static Vector2[] GetHandlePoints(float radius, int n = 32) {
-            var points = new Vector2[n];
+            this.defaultMesh = new Mesh();
+            circleMesh.Fill(defaultMesh, normal);
+            
+            this.selectedMesh = new Mesh();
+            circleMesh.Fill(selectedMesh, selected);
+            
+            this.hoverMesh = new Mesh();
+            circleMesh.Fill(hoverMesh, hover);
 
-            float angle = 0.0f;
-            float dAngle = 2 * Mathf.PI / n;
-
-            for(int i = 0; i < n; i++) {
-                points[i].x = radius * Mathf.Cos(angle);
-                points[i].y = radius * Mathf.Sin(angle);
-                angle += dAngle;
-            }
-
-            return points;
+            circleMesh.Dispose();
+            
+            var ringMesh = MeshGenerator.StrokeForCircle(float2.zero, radius, 16, new StrokeStyle(1.6f * stroke), 0, Allocator.Temp);
+            this.strokeMesh = ringMesh.Convert(Color.yellow);
         }
 
         public PinchResult MoveHandle(out Vector2 movedPosition, Anchor anchor, Vector3 pathPosition, bool isNext, float scale) {

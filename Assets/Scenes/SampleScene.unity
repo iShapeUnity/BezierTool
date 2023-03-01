@@ -251,26 +251,26 @@ MonoBehaviour:
     IsSelectedPrevPinch: 0
     isHighlighted: 1
     IsMultiSelection: 0
-    NextPoint: {x: 0, y: 0}
-    PrevPoint: {x: 0, y: 0}
-    Position: {x: -1, y: -1}
+    NextPoint: {x: -1, y: 0}
+    PrevPoint: {x: -1, y: 0}
+    Position: {x: -2, y: -1}
   - type: 3
     IsSelectedPoint: 0
     IsSelectedNextPinch: 0
     IsSelectedPrevPinch: 1
     isHighlighted: 0
     IsMultiSelection: 0
-    NextPoint: {x: -0.9699667, y: 1.9521192}
-    PrevPoint: {x: -0.32163507, y: 0.40049368}
-    Position: {x: -0.77573866, y: 1.4872812}
+    NextPoint: {x: 1.483635, y: 0.1410523}
+    PrevPoint: {x: -2, y: 0.5}
+    Position: {x: 1, y: 0}
   - type: 3
     IsSelectedPoint: 0
     IsSelectedNextPinch: 0
     IsSelectedPrevPinch: 0
     isHighlighted: 1
     IsMultiSelection: 0
-    NextPoint: {x: 1.1682334, y: 0.9311317}
-    PrevPoint: {x: 0.5435058, y: 1.1868712}
+    NextPoint: {x: 1.4388082, y: 1.0862987}
+    PrevPoint: {x: 0.22009051, y: 0.88004375}
     Position: {x: 1, y: 1}
   - type: 0
     IsSelectedPoint: 0
@@ -283,7 +283,7 @@ MonoBehaviour:
     Position: {x: 1, y: -1}
   stepLength: 0.125
   curvePrecision: 3
-  isClosed: 1
+  isClosed: 0
   color: {r: 0, g: 1, b: 0.81905985, a: 1}
 --- !u!4 &2123658389
 Transform:
