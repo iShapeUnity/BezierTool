@@ -1,0 +1,32 @@
+{
+    "name": "iShape.BezierTool.Editor",
+    "rootNamespace": "",
+    "references": [
+        "iShape.Spline",
+        "iShape.BezierTool",
+        "Unity.Collections",
+        "Unity.Mathematics"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.ishape.spline",
+            "expression": "0.0.3"
+        },
+        {
+            "name": "com.unity.mathematics",
+            "expression": "1.2.6"
+        },
+        {
+            "name": "com.unity.collections",
+            "expression": "1.2.4"
+        }
+    ],
+    "noEngineReferences": false
+}
