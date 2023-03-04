@@ -1,6 +1,6 @@
 {
   "name": "com.ishape.beziertool",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "displayName": "iShape.BezierTool",
   "description": "UI 2d Bezier Tool for Unity.",
   "unity": "2022.2",
@@ -20,8 +20,8 @@
     "url": "https://github.com/iShapeUnity/BezierTool.git"
   },
   "dependencies": {
-    "com.ishape.mesh2d": "0.0.3",
-    "com.ishape.spline": "0.0.3",
+    "com.ishape.mesh2d": "0.0.4",
+    "com.ishape.spline": "0.0.5",
     "com.unity.mathematics": "1.2.6",
     "com.unity.collections": "1.2.4"
   },

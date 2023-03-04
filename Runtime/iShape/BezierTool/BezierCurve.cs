@@ -56,13 +56,34 @@ namespace iShape.BezierTool {
         public Vector2[] GetGlobalPath() {
             Vector3 globPos = transform.position; 
             float2 pos = new float2(globPos.x, globPos.y);
-            var anchors = dots.CreateAnchors(Allocator.Temp);
-            var contour = new Contour(anchors, isClosed);
-            anchors.Dispose();
+            var contour = this.BuildContour(Allocator.Temp);
             var nPoints = contour.GetPoints(stepLength, pos, Allocator.Temp);
+            contour.Dispose();
             var points = nPoints.Reinterpret<Vector2>().ToArray();
             nPoints.Dispose();
             return points;
+        }
+
+        public Contour BuildContour(Allocator allocator) {
+            return BuildContour(20, allocator);
+        }
+        
+        public Contour BuildContour(int count, Allocator allocator) {
+            var anchors = dots.CreateAnchors(Allocator.Temp);
+            var contour = new Contour(anchors, isClosed, count, allocator);
+            anchors.Dispose();
+            return contour;
+        }
+        
+        public Curve BuildCurve(Allocator allocator) {
+            return BuildCurve(20, allocator);
+        }
+        
+        public Curve BuildCurve(int count, Allocator allocator) {
+            var anchors = dots.CreateAnchors(Allocator.Temp);
+            var curve = new Curve(anchors, isClosed, count, allocator);
+            anchors.Dispose();
+            return curve;
         }
 
 #if UNITY_EDITOR

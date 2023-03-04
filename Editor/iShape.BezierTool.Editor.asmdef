@@ -17,15 +17,15 @@
     "versionDefines": [
         {
             "name": "com.ishape.spline",
-            "expression": "0.0.3"
-        },
-        {
-            "name": "com.unity.mathematics",
-            "expression": "1.2.6"
+            "expression": "0.0.5"
         },
         {
             "name": "com.unity.collections",
             "expression": "1.2.4"
+        },
+        {
+            "name": "com.unity.mathematics",
+            "expression": "1.2.6"
         }
     ],
     "noEngineReferences": false

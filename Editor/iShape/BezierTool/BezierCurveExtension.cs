@@ -110,9 +110,7 @@ namespace iShape.BezierTool {
                 return false;
             }
 
-            var anchors = dots.CreateAnchors(Allocator.Temp);
-            var sCurve = new Curve(anchors, isClosed: curve.isClosed);
-            anchors.Dispose();
+            var sCurve = curve.BuildCurve(Allocator.Temp);
 
             for (int i = n - 1; i >= 0; i--) {
                 int index = suitIndexes[i];
@@ -126,6 +124,7 @@ namespace iShape.BezierTool {
                 newAnchor.IsSelectedPoint = true;
             }
             
+            sCurve.Dispose();
 
             return true;
         }
@@ -150,13 +149,10 @@ namespace iShape.BezierTool {
             
             bool result = false;
             var dots = curve.dots;
-            var anchors = dots.CreateAnchors(Allocator.Temp);
-                
-            var sCurve = new Curve(anchors, isClosed: curve.isClosed);
-            anchors.Dispose();
+
+            var sCurve = curve.BuildCurve(Allocator.Temp);
             
             int n = dots.Count;
-
             
             for (int i = 0; i < n; ++i) {
                 var dot = dots[i];
@@ -191,6 +187,8 @@ namespace iShape.BezierTool {
                     }
                 }
             }
+            
+            sCurve.Dispose();
 
             return result;
         }
@@ -230,9 +228,7 @@ namespace iShape.BezierTool {
             var dots = curve.dots;
             
             int n = dots.Count;
-            var anchors = dots.CreateAnchors(Allocator.Temp);
-            var sCurve = new Curve(anchors, isClosed: curve.isClosed);
-            anchors.Dispose();
+            var sCurve = curve.BuildCurve(Allocator.Temp);
             
             var prevAnchor = dots[n - 1];
             
@@ -266,6 +262,7 @@ namespace iShape.BezierTool {
                 prevAnchor = anchor;
             }
             
+            sCurve.Dispose();
 
             return result;
         }
@@ -273,12 +270,13 @@ namespace iShape.BezierTool {
         public static void AddPoint(this BezierCurve curve, Vector2 point) {
             Vector2 position = curve.transform.position;
             var localPoint = point - position;
+            
+            var sCurve = curve.BuildCurve(Allocator.Temp);
 
-            var anchors = curve.dots.CreateAnchors(Allocator.Temp);
-            var sCurve = new Curve(anchors, isClosed: curve.isClosed);
-            anchors.Dispose();
             var result = sCurve.FindSpriteContainPoint(localPoint, out var containerLineStart, out var containerLineEnd, curve.stepLength);
 
+            sCurve.Dispose();
+            
             curve.AddPoint(localPoint, containerLineStart, containerLineEnd, result);
         }
 

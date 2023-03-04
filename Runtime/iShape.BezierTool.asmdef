@@ -17,11 +17,11 @@
     "versionDefines": [
         {
             "name": "com.ishape.mesh2d",
-            "expression": "0.0.3"
+            "expression": "0.0.4"
         },
-                {
+        {
             "name": "com.ishape.spline",
-            "expression": "0.0.3"
+            "expression": "0.0.5"
         },
         {
             "name": "com.unity.mathematics",
