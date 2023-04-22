@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using UnityEngine;
 
 namespace iShape.BezierTool {
@@ -49,3 +51,4 @@ namespace iShape.BezierTool {
     }
 
 }
+#endif

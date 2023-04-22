@@ -21,6 +21,9 @@ namespace iShape.BezierTool {
         [HideInInspector]
         public int curvePrecision = 3;
         
+        [HideInInspector]
+        public float cornerRadius = 0.2f;
+        
         [SerializeField]
         public bool isClosed = true;
 

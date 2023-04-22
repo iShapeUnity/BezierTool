@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using UnityEditor;
 using UnityEngine;
 
@@ -8,13 +10,14 @@ namespace iShape.BezierTool {
     public class BezierCurveEditor : UnityEditor.Editor
     {
         private const int maxCurveShapePrecision = 10;
+        private const int maxCurveRadius = 1;
         private bool hasCandidatePoint;
         private Vector2 candidatePoint;
         private Vector2 mouseStartDrag;
         private static readonly Color orange = new Color(1.0f, 0.5f, 0.0f);
         private static readonly Color orangeHalfBlend = new Color(1.0f, 0.5f, 0.0f, 0.95f);
         private static readonly Color orangeFullBlend = new Color(1.0f, 0.5f, 0.0f, 0.1f);
-
+        
         private Texture[] _icons;
 
         private Texture[] icons {
@@ -420,6 +423,21 @@ namespace iShape.BezierTool {
 
 
             EditorGUILayout.Space();
+            
+            GUILayout.Label("Corner Radius", EditorStyles.boldLabel);
+            EditorGUILayout.Space();
+
+            var newRadius = EditorGUILayout.Slider("Radius", shape.cornerRadius, 0, 1);
+            if (Mathf.Abs(newRadius - shape.cornerRadius) < 0.001f) {
+                shape.cornerRadius = newRadius;
+                shape.Smoothe();
+
+                EditorUtility.SetDirty(target);
+                return;
+            }
+
+
+            EditorGUILayout.Space();
 
             var rect = EditorGUILayout.BeginHorizontal();
             Handles.color = Color.gray;
@@ -432,3 +450,5 @@ namespace iShape.BezierTool {
         }
     }
 }
+
+#endif

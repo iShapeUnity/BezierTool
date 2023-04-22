@@ -1,4 +1,6 @@
-﻿using iShape.Mesh2d;
+﻿#if UNITY_EDITOR
+
+using iShape.Mesh2d;
 using Unity.Collections;
 using Unity.Mathematics;
 using UnityEditor;
@@ -35,7 +37,7 @@ namespace iShape.BezierTool {
                 throw new System.Exception("could not load material");
             }
 
-            var circleMesh = MeshGenerator.Circle(float2.zero, radius, 16, 0, Allocator.Temp);
+            var circleMesh = MeshGenerator.FillCircle(float2.zero, radius, 16, false, 0, Allocator.Temp);
 
             this.defaultMesh = new Mesh();
             circleMesh.Fill(defaultMesh, normal);
@@ -190,5 +192,5 @@ namespace iShape.BezierTool {
 
     }
 
-
 }
+#endif

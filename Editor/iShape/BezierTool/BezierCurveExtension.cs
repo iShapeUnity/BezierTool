@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using System.Collections.Generic;
 using iShape.Spline;
 using Unity.Collections;
@@ -294,3 +296,4 @@ namespace iShape.BezierTool {
     }
 
 }
+#endif

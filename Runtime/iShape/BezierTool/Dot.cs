@@ -75,6 +75,12 @@ namespace iShape.BezierTool {
             NextPoint = anchor.NextPoint + new float2(move);
         }
         
+        public Dot(Anchor anchor) {
+            Position = anchor.Position;
+            PrevPoint = anchor.PrevPoint;
+            NextPoint = anchor.NextPoint;
+        }
+        
         public Dot(Vector2 position) {
             Position = position;
             PrevPoint = Vector2.zero;
